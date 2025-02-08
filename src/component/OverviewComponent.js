@@ -1,24 +1,32 @@
 import { useState } from "react";
 
-const OverviewComponent=(props)=>{
+
+const OverviewComponent=({addtransactions})=>{
 
     const[amount,setAmount]=useState("0")
     const[inputAmount,setInputAmount]=useState("")
+    const[description,setDescription]=useState("")
     const[error,setError]=useState("")
 
-    const handleSubmit=()=>{
-        if(!inputAmount.trim()){
-            setError("Amount is required")
+    const handleSubmit = () => {
+        if (!inputAmount.trim()) {
+            setError("Amount is required");
             return;
         }
-        if(isNaN(inputAmount) || Number(inputAmount)<=0){
-            setError("enter a valid number")
-            return ;
+        if (isNaN(inputAmount) || Number(inputAmount) <= 0) {
+            setError("Enter a valid number");
+            return;
         }
-        setAmount(inputAmount);
+        if (!description.trim()) {
+            setError("Description is required");
+            return;
+        }
+    
         setError("");
+        addtransactions(Number(inputAmount), description);
         setInputAmount("");
-    }
+        setDescription("");  
+    };
 
     return (
         <div className="Transaction">
@@ -28,7 +36,9 @@ const OverviewComponent=(props)=>{
         }}/>
 
         <p className="error">{error}</p>
-        <input placeholder="Description"/>
+        <input placeholder="Description" value={description} onChange={(e)=>{
+            setDescription(e.target.value)
+        }}/>
         <button type="submit" onClick={handleSubmit} >Add Transaction</button>
 
     </div>
