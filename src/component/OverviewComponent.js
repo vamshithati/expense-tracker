@@ -1,13 +1,15 @@
 import { useState } from "react";
 
 
-const OverviewComponent=({addtransactions})=>{
+const OverviewComponent=({transactions,addtransactions})=>{
 
     const[amount,setAmount]=useState("0")
     const[inputAmount,setInputAmount]=useState("")
     const[description,setDescription]=useState("")
     const[error,setError]=useState("")
 
+    const totalBalance = transactions.reduce((acc, transaction) => acc + transaction.amount, 0);
+    
     const handleSubmit = () => {
         if (!inputAmount.trim()) {
             setError("Amount is required");
@@ -25,12 +27,13 @@ const OverviewComponent=({addtransactions})=>{
         setError("");
         addtransactions(Number(inputAmount), description);
         setInputAmount("");
+        setAmount(inputAmount);
         setDescription("");  
     };
 
     return (
         <div className="Transaction">
-            <h3>Balance:{amount}</h3>
+            <h3 className="balance">Balance: ${totalBalance.toFixed(2)}</h3>
         <input placeholder="Amount" value={inputAmount} onChange={(e)=>{
             setInputAmount(e.target.value);
         }}/>
