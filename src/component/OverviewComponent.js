@@ -7,6 +7,7 @@ const OverviewComponent=({transactions,addtransactions})=>{
     const[inputAmount,setInputAmount]=useState("")
     const[description,setDescription]=useState("")
     const[error,setError]=useState("")
+    const [transactionType, setTransactionType] = useState("income");
 
     const totalBalance = transactions.reduce((acc, transaction) => acc + transaction.amount, 0);
     
@@ -25,7 +26,7 @@ const OverviewComponent=({transactions,addtransactions})=>{
         }
     
         setError("");
-        addtransactions(Number(inputAmount), description);
+        addtransactions(Number(inputAmount), description, transactionType);
         setInputAmount("");
         setAmount(inputAmount);
         setDescription("");  
@@ -42,6 +43,11 @@ const OverviewComponent=({transactions,addtransactions})=>{
         <input placeholder="Description" value={description} onChange={(e)=>{
             setDescription(e.target.value)
         }}/>
+
+<select value={transactionType} onChange={(e) => setTransactionType(e.target.value)}>
+                <option value="income">Income</option>
+                <option value="expense">Expense</option>
+            </select>
         <button type="submit" onClick={handleSubmit} >Add Transaction</button>
 
     </div>

@@ -4,17 +4,19 @@ const TransactionComponent = ({ transactions, deleteTransaction, editTransaction
     const [editIndex, setEditIndex] = useState(null);
     const [newAmount, setNewAmount] = useState("");
     const [newDescription, setNewDescription] = useState("");
+    const [newType, setNewType] = useState("income");
 
     // Function to start editing a transaction
     const startEditing = (index, transaction) => {
         setEditIndex(index);
         setNewAmount(transaction.amount);
         setNewDescription(transaction.description);
+        setNewType(transaction.type);
     };
 
     // Function to save edited transaction
     const saveEdit = (index) => {
-        editTransaction(index, newAmount, newDescription);
+        editTransaction(index, newAmount, newDescription, newType);
         setEditIndex(null); // Exit edit mode
     };
 
@@ -31,6 +33,7 @@ const TransactionComponent = ({ transactions, deleteTransaction, editTransaction
                         <th>#</th>
                         <th>Description</th>
                         <th>Amount ($)</th>
+                        <th>Type</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -55,6 +58,12 @@ const TransactionComponent = ({ transactions, deleteTransaction, editTransaction
                                         />
                                     </td>
                                     <td>
+                                        <select value={newType} onChange={(e) => setNewType(e.target.value)}>
+                                            <option value="income">Income</option>
+                                            <option value="expense">Expense</option>
+                                        </select>
+                                    </td>
+                                    <td>
                                         <button className="save-btn" onClick={() => saveEdit(index)}>✅ Save</button>
                                         <button className="cancel-btn" onClick={() => setEditIndex(null)}>❌ Cancel</button>
                                     </td>
@@ -63,6 +72,7 @@ const TransactionComponent = ({ transactions, deleteTransaction, editTransaction
                                 <>
                                     <td>{transaction.description}</td>
                                     <td>${transaction.amount}</td>
+                                    <td>{transaction.type}</td>
                                     <td>
                                         <button className="edit-btn" onClick={() => startEditing(index, transaction)}>✏️ Edit</button>
                                         <button className="delete-btn" onClick={() => deleteTransaction(index)}>❌ Delete</button>
