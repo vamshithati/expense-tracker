@@ -3,14 +3,14 @@ import { useState } from "react";
 
 const OverviewComponent=({transactions,addtransactions})=>{
 
-    const[amount,setAmount]=useState("0")
+    
     const[inputAmount,setInputAmount]=useState("")
     const[description,setDescription]=useState("")
     const[error,setError]=useState("")
-    const [transactionType, setTransactionType] = useState("income");
+    const [type, setType] = useState("Income")
 
-    const totalBalance = transactions.reduce((acc, transaction) => acc + transaction.amount, 0);
-    
+    const totalBalance = transactions.reduce((acc, transaction) => 
+        acc + (transaction.type === "Income" ? transaction.amount : -transaction.amount), 0);
     const handleSubmit = () => {
         if (!inputAmount.trim()) {
             setError("Amount is required");
@@ -26,9 +26,9 @@ const OverviewComponent=({transactions,addtransactions})=>{
         }
     
         setError("");
-        addtransactions(Number(inputAmount), description, transactionType);
+        addtransactions(Number(inputAmount), description);
         setInputAmount("");
-        setAmount(inputAmount);
+       
         setDescription("");  
     };
 
@@ -44,10 +44,25 @@ const OverviewComponent=({transactions,addtransactions})=>{
             setDescription(e.target.value)
         }}/>
 
-<select value={transactionType} onChange={(e) => setTransactionType(e.target.value)}>
-                <option value="income">Income</option>
-                <option value="expense">Expense</option>
-            </select>
+<div>
+                <label>
+                    <input 
+                        type="radio" 
+                        value="Income" 
+                        checked={type === "Income"} 
+                        onChange={() => setType("Income")} 
+                    /> Income
+                </label>
+                <label>
+                    <input 
+                        type="radio" 
+                        value="Expense" 
+                        checked={type === "Expense"} 
+                        onChange={() => setType("Expense")} 
+                    /> Expense
+                </label>
+            </div>
+            
         <button type="submit" onClick={handleSubmit} >Add Transaction</button>
 
     </div>
