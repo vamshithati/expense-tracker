@@ -132,3 +132,14 @@ button:hover {
 .cancel-btn:hover {
   background-color: darkgray;
 }
+
+.income-row {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+/* Expense transactions appear in red */
+.expense-row {
+  background-color: #f8d7da;
+  color: #721c24;
+}
