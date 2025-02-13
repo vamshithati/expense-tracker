@@ -4,8 +4,8 @@ import { useState } from "react";
 
 const Home=()=>{
     const [transactions,setTransactions]=useState([]);
-    const addtransactions = (amount, description) => {
-        setTransactions((prev) => [...prev, { amount: Number(amount), description }]);
+    const addtransactions = (amount, description, type) => {
+        setTransactions((prev) => [...prev, { amount: Number(amount), description, type }]);
     };
 
     const deleteTransaction = (index) => {

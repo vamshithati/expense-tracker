@@ -4,19 +4,17 @@ const TransactionComponent = ({ transactions, deleteTransaction, editTransaction
     const [editIndex, setEditIndex] = useState(null);
     const [newAmount, setNewAmount] = useState("");
     const [newDescription, setNewDescription] = useState("");
-    const [newType, setNewType] = useState("income");
 
     // Function to start editing a transaction
     const startEditing = (index, transaction) => {
         setEditIndex(index);
         setNewAmount(transaction.amount);
         setNewDescription(transaction.description);
-        setNewType(transaction.type);
     };
 
     // Function to save edited transaction
     const saveEdit = (index) => {
-        editTransaction(index, newAmount, newDescription, newType);
+        editTransaction(index, newAmount, newDescription);
         setEditIndex(null); // Exit edit mode
     };
 
@@ -56,12 +54,6 @@ const TransactionComponent = ({ transactions, deleteTransaction, editTransaction
                                             value={newAmount} 
                                             onChange={(e) => setNewAmount(e.target.value)} 
                                         />
-                                    </td>
-                                    <td>
-                                        <select value={newType} onChange={(e) => setNewType(e.target.value)}>
-                                            <option value="income">Income</option>
-                                            <option value="expense">Expense</option>
-                                        </select>
                                     </td>
                                     <td>
                                         <button className="save-btn" onClick={() => saveEdit(index)}>✅ Save</button>
