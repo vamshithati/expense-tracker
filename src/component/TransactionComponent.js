@@ -4,17 +4,19 @@ const TransactionComponent = ({ transactions, deleteTransaction, editTransaction
     const [editIndex, setEditIndex] = useState(null);
     const [newAmount, setNewAmount] = useState("");
     const [newDescription, setNewDescription] = useState("");
+    const [newType, setNewType] = useState("Income");
 
     // Function to start editing a transaction
     const startEditing = (index, transaction) => {
         setEditIndex(index);
         setNewAmount(transaction.amount);
         setNewDescription(transaction.description);
+        setNewType(transaction.type);
     };
 
     // Function to save edited transaction
     const saveEdit = (index) => {
-        editTransaction(index, newAmount, newDescription);
+        editTransaction(index, newAmount, newDescription, newType);
         setEditIndex(null); // Exit edit mode
     };
 
@@ -37,7 +39,7 @@ const TransactionComponent = ({ transactions, deleteTransaction, editTransaction
                 </thead>
                 <tbody>
                     {transactions.map((transaction, index) => (
-                        <tr key={index}>
+                        <tr key={index}className={transaction.type === "Expense" ? "expense-row" : "income-row"}>
                             <td>{index + 1}</td>
                             {editIndex === index ? (
                                 <>
@@ -54,6 +56,12 @@ const TransactionComponent = ({ transactions, deleteTransaction, editTransaction
                                             value={newAmount} 
                                             onChange={(e) => setNewAmount(e.target.value)} 
                                         />
+                                    </td>
+                                    <td>
+                                        <select value={newType} onChange={(e) => setNewType(e.target.value)}>
+                                            <option value="Income">Income</option>
+                                            <option value="Expense">Expense</option>
+                                        </select>
                                     </td>
                                     <td>
                                         <button className="save-btn" onClick={() => saveEdit(index)}>✅ Save</button>
