@@ -26,7 +26,7 @@ const OverviewComponent=({transactions,addtransactions})=>{
         }
     
         setError("");
-        addtransactions(Number(inputAmount), description);
+        addtransactions(Number(inputAmount), description, type);
         setInputAmount("");
        
         setDescription("");  
