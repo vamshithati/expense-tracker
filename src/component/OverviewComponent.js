@@ -44,7 +44,7 @@ const OverviewComponent=({transactions,addtransactions})=>{
             setDescription(e.target.value)
         }}/>
 
-<div>
+<div className="transaction-type">
                 <label>
                     <input 
                         type="radio" 
