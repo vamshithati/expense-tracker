@@ -219,3 +219,14 @@ button[type="submit"]:hover {
       width: 90%;
   }
 }
+
+.error {
+  color: red;
+  font-size: 14px;
+}
+@media (max-width: 500px) {
+  .transaction-table th, .transaction-table td {
+      font-size: 14px;
+      padding: 8px;
+  }
+}
