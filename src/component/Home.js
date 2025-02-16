@@ -12,9 +12,9 @@ const Home=()=>{
         const updatedTransactions = transactions.filter((_, i) => i !== index);
         setTransactions(updatedTransactions);
     };
-    const editTransaction = (index, newAmount, newDescription) => {
+    const editTransaction = (index, newAmount, newDescription, newType) => {
         let updatedTransactions = [...transactions]; // Copy transactions
-        updatedTransactions[index] = { amount: Number(newAmount), description: newDescription }; // Update the selected one
+        updatedTransactions[index] = { amount: Number(newAmount), description: newDescription , type:newType}; // Update the selected one
         setTransactions(updatedTransactions);
     };
 
